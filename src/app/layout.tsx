@@ -32,7 +32,17 @@ export const metadata: Metadata = {
   },
   description:
     "Ventas, stock y gastos en un solo lugar, con análisis y predicciones para decidir mejor. Hecho para comercios de Argentina.",
+  keywords: [
+    "sistema de ventas",
+    "control de stock",
+    "gestión para comercios",
+    "software para almacenes",
+    "software para kioscos",
+    "predicción de ventas",
+    "punto de venta Argentina",
+  ],
   openGraph: {
+    siteName: "NEXORA",
     title: "NEXORA — Gestión y predicción de ventas para comercios",
     description:
       "Ventas, stock y gastos en un solo lugar, con análisis y predicciones para decidir mejor.",

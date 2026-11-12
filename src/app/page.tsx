@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { AssistantScene } from "@/components/landing/assistant-scene";
 import { DayStory } from "@/components/landing/day-story";
 import { Faq } from "@/components/landing/faq";
@@ -12,10 +14,31 @@ import {
   LandingNav,
   SectionHeading,
 } from "@/components/landing/sections";
+import { siteUrl } from "@/lib/supabase/env";
+
+// Datos estructurados: le dicen a los buscadores y asistentes qué es NEXORA.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "NEXORA",
+  url: siteUrl,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  inLanguage: "es-AR",
+  description:
+    "Sistema de gestión de ventas, stock y gastos para comercios de Argentina, con análisis, alertas, predicción de ventas y un asistente con inteligencia artificial.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "ARS" },
+  author: { "@type": "Person", name: "Ezequiel Gaona", url: "https://github.com/EzeGaona21" },
+};
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function LandingPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <LandingNav />
       <main>
         <Hero />
