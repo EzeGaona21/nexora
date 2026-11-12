@@ -31,7 +31,7 @@ export function Delta({
     <span
       className={cn(
         "num inline-flex items-center gap-0.5 text-xs font-medium",
-        flat ? "text-muted" : up ? "text-brand-bright" : "text-danger",
+        flat ? "text-muted" : up ? "text-success" : "text-danger",
         className,
       )}
     >

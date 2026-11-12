@@ -45,7 +45,7 @@ function TooltipCard({
         {payload.map((entry) => (
           <li key={String(entry.dataKey)} className="flex items-center justify-between gap-6 text-[13px]">
             <span className="flex items-center gap-2 text-muted">
-              <span className="size-2 rounded-full" style={{ backgroundColor: entry.color ?? "#10B981" }} aria-hidden />
+              <span className="size-2 rounded-full" style={{ backgroundColor: entry.color ?? "#8B5CF6" }} aria-hidden />
               {entry.name}
             </span>
             <span className="num font-medium text-fg">{formatARS(Number(entry.value))}</span>
@@ -74,8 +74,8 @@ export function RevenueProfitChart({ data }: { data: RevenueProfitPoint[] }) {
         <ComposedChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="fill-revenue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#10B981" stopOpacity={0.22} />
-              <stop offset="100%" stopColor="#10B981" stopOpacity={0} />
+              <stop offset="0%" stopColor="#8B5CF6" stopOpacity={0.22} />
+              <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid stroke={GRID} strokeDasharray="3 3" vertical={false} />
@@ -86,11 +86,11 @@ export function RevenueProfitChart({ data }: { data: RevenueProfitPoint[] }) {
             type="monotone"
             dataKey="revenue"
             name="Facturación"
-            stroke="#10B981"
+            stroke="#8B5CF6"
             strokeWidth={2}
             fill="url(#fill-revenue)"
             dot={false}
-            activeDot={{ r: 4, strokeWidth: 0, fill: "#34D399" }}
+            activeDot={{ r: 4, strokeWidth: 0, fill: "#A78BFA" }}
           />
           <Line
             type="monotone"
@@ -133,7 +133,7 @@ export function BarsChart({
           <Tooltip content={<TooltipCard formatLabel={(l) => l} />} cursor={{ fill: "rgb(148 163 184 / 0.06)" }} />
           <Bar dataKey="value" name={seriesName} radius={[5, 5, 0, 0]} maxBarSize={44}>
             {data.map((d) => (
-              <Cell key={d.label} fill={d.value === max && max > 0 ? "#10B981" : "#1F5F4C"} />
+              <Cell key={d.label} fill={d.value === max && max > 0 ? "#8B5CF6" : "#3F2C73"} />
             ))}
           </Bar>
         </BarChart>

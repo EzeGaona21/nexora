@@ -47,9 +47,9 @@ function DotChart() {
                   y={(ROWS - 1 - k) * step + (forecast ? 1 : 0)}
                   width={cell - (forecast ? 2 : 0)}
                   height={cell - (forecast ? 2 : 0)}
-                  fill={forecast ? "none" : top ? "#34D399" : "#10B981"}
+                  fill={forecast ? "none" : top ? "#A78BFA" : "#8B5CF6"}
                   fillOpacity={forecast ? 1 : top ? 1 : 0.16 + 0.5 * (k / ROWS)}
-                  stroke={forecast ? "#34D399" : "none"}
+                  stroke={forecast ? "#A78BFA" : "none"}
                   strokeOpacity={top ? 1 : 0.45}
                   strokeWidth={2}
                 />

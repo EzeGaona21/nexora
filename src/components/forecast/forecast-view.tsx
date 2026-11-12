@@ -183,7 +183,7 @@ export function ForecastView({
         <div className="flex flex-wrap gap-x-5 gap-y-1.5 px-5 pt-3">
           <LegendDot color="#F8FAFC" label="Ventas reales" />
           <LegendDot color="#64748B" label="Lo que el modelo habría estimado" dashed />
-          <LegendDot color="#10B981" label="Proyección y rango probable" dashed />
+          <LegendDot color="#8B5CF6" label="Proyección y rango probable" dashed />
         </div>
         <div className="p-2 pt-3 sm:p-4">
           <ForecastChart data={chartData} today={lastDay} />

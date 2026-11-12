@@ -105,8 +105,8 @@ function WeekChart({ step }: { step: number }) {
               y={(ROWS - 1 - k) * pitch + (hollow ? 1 : 0)}
               width={cell - (hollow ? 2 : 0)}
               height={cell - (hollow ? 2 : 0)}
-              fill={hollow ? "none" : c.kind === "today" ? "#34D399" : "#10B981"}
-              stroke={hollow ? "#34D399" : "none"}
+              fill={hollow ? "none" : c.kind === "today" ? "#A78BFA" : "#8B5CF6"}
+              stroke={hollow ? "#A78BFA" : "none"}
               strokeWidth={2}
               initial={false}
               animate={{ opacity: on ? (c.kind === "past" ? 0.28 + 0.4 * (k / ROWS) : hollow ? 0.75 : 1) : 0 }}
@@ -160,7 +160,7 @@ function Panel({ step }: { step: number }) {
             {(step === 1 || step === 2) && `${SALES_COUNT[step]} ventas · ticket promedio $ ${step === 1 ? "8.776" : "9.011"}`}
             {step === 3 && (
               <>
-                Ganancia <span className="text-brand-bright">$ 274.900</span> · gastos $ 38.000
+                Ganancia <span className="text-success">$ 274.900</span> · gastos $ 38.000
               </>
             )}
             {step === LAST && "Rango probable: 5,9 a 7,4 millones"}

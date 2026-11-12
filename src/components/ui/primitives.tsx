@@ -31,6 +31,7 @@ export function CardHeader({
 const badgeTones = {
   neutral: "border-border bg-raised text-muted",
   brand: "border-brand/25 bg-brand/10 text-brand-bright",
+  success: "border-success/25 bg-success/10 text-success",
   danger: "border-danger/25 bg-danger/10 text-danger",
   warning: "border-warning/25 bg-warning/10 text-warning",
   info: "border-info/25 bg-info/10 text-info",

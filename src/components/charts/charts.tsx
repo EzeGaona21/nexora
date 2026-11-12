@@ -91,8 +91,8 @@ export function SalesComparisonChart({ data }: { data: ComparisonPoint[] }) {
         <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="fill-current" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#10B981" stopOpacity={0.24} />
-              <stop offset="100%" stopColor="#10B981" stopOpacity={0} />
+              <stop offset="0%" stopColor="#8B5CF6" stopOpacity={0.24} />
+              <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid stroke={GRID} strokeDasharray="3 3" vertical={false} />
@@ -114,11 +114,11 @@ export function SalesComparisonChart({ data }: { data: ComparisonPoint[] }) {
             type="monotone"
             dataKey="current"
             name="Período actual"
-            stroke="#10B981"
+            stroke="#8B5CF6"
             strokeWidth={2}
             fill="url(#fill-current)"
             dot={false}
-            activeDot={{ r: 4, strokeWidth: 0, fill: "#34D399" }}
+            activeDot={{ r: 4, strokeWidth: 0, fill: "#A78BFA" }}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -155,7 +155,7 @@ export function ForecastChart({ data, today }: { data: ForecastChartPoint[]; tod
             dataKey="band"
             name="Rango probable (80 %)"
             stroke="none"
-            fill="#10B981"
+            fill="#8B5CF6"
             fillOpacity={0.12}
             activeDot={false}
             connectNulls={false}
@@ -184,11 +184,11 @@ export function ForecastChart({ data, today }: { data: ForecastChartPoint[]; tod
             type="monotone"
             dataKey="forecast"
             name="Proyección"
-            stroke="#10B981"
+            stroke="#8B5CF6"
             strokeWidth={2}
             strokeDasharray="6 4"
             dot={false}
-            activeDot={{ r: 4, strokeWidth: 0, fill: "#34D399" }}
+            activeDot={{ r: 4, strokeWidth: 0, fill: "#A78BFA" }}
           />
         </ComposedChart>
       </ResponsiveContainer>

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={cn("size-6", className)} aria-hidden>
-      <rect width="24" height="24" rx="6.5" fill="#10B981" />
+      <rect width="24" height="24" rx="6.5" fill="#8B5CF6" />
       <path
         d="M7.25 16.75v-9.5l9.5 9.5v-9.5"
         fill="none"

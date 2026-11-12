@@ -56,7 +56,7 @@ function Bar() {
       {pending ? (
         <motion.div
           aria-hidden
-          className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-0.5 origin-left bg-brand-bright shadow-[0_0_10px_rgb(52_211_153/0.7)] print:hidden"
+          className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-0.5 origin-left bg-brand-bright shadow-[0_0_10px_rgb(167_139_250/0.7)] print:hidden"
           initial={{ scaleX: 0, opacity: 1 }}
           animate={{ scaleX: [0, 0.35, 0.7, 0.9], transition: { duration: 6, times: [0, 0.08, 0.35, 1], ease: "easeOut" } }}
           exit={{ scaleX: 1, opacity: 0, transition: { duration: 0.25 } }}

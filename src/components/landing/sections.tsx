@@ -161,12 +161,12 @@ export function FinalCta() {
     <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden border-t border-border bg-black px-4 py-24 sm:px-8 sm:py-32">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_90%_at_50%_120%,rgb(16_185_129/0.22),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_90%_at_50%_120%,rgb(139_92_246/0.22),transparent_70%)]"
       />
       <Reveal className="relative mx-auto w-full max-w-[92rem]">
         <h2 className="display text-[19vw] sm:text-[clamp(5rem,13.5vw,15rem)]">
           Empezá hoy.
-          <span className="block text-brand">Mañana, números.</span>
+          <span className="mt-[0.16em] block text-brand">Mañana, números.</span>
         </h2>
         <div className="mt-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <p className="max-w-md text-lg text-muted">

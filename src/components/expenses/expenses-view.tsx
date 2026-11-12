@@ -128,7 +128,7 @@ function Stat({ label, value, tone }: { label: string; value: number; tone?: "go
       <p
         className={cn(
           "mt-2 truncate text-xl font-semibold tracking-tight sm:text-2xl",
-          tone === "good" && "text-brand-bright",
+          tone === "good" && "text-success",
           tone === "bad" && "text-danger",
         )}
       >

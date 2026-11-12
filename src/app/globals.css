@@ -2,7 +2,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
    NEXORA · Design tokens
-   Dirección: Dark Intelligent SaaS — Emerald Glass — Precision Analytics
+   Dirección: Dark Intelligent SaaS — Violet Glass — Precision Analytics
    Documentado en docs/DESIGN_SYSTEM.md
    ═══════════════════════════════════════════════════════════════ */
 @theme {
@@ -19,11 +19,12 @@
   --color-subtle: #64748b;
 
   /* Marca */
-  --color-brand: #10b981;
-  --color-brand-bright: #34d399;
-  --color-brand-deep: #064e3b;
+  --color-brand: #8B5CF6;
+  --color-brand-bright: #A78BFA;
+  --color-brand-deep: #2E1065;
 
   /* Semánticos */
+  --color-success: #34d399;
   --color-danger: #f87171;
   --color-warning: #fbbf24;
   --color-info: #60a5fa;
@@ -35,7 +36,7 @@
 
   --radius-card: 0.875rem;
 
-  --shadow-glow: 0 0 0 1px rgb(16 185 129 / 0.25), 0 8px 40px -12px rgb(16 185 129 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(139 92 246 / 0.25), 0 8px 40px -12px rgb(139 92 246 / 0.35);
   --shadow-pop: 0 24px 60px -20px rgb(0 0 0 / 0.7);
 
 }
@@ -79,7 +80,7 @@
   }
 
   ::selection {
-    background-color: rgb(16 185 129 / 0.3);
+    background-color: rgb(139 92 246 / 0.3);
   }
 
   :focus-visible {
@@ -132,7 +133,7 @@
   /* Fondo con profundidad: retícula + halo esmeralda, sin imágenes */
   .backdrop-grid {
     background-image:
-      radial-gradient(ellipse 70% 50% at 50% 0%, rgb(16 185 129 / 0.13), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgb(139 92 246 / 0.13), transparent 70%),
       linear-gradient(rgb(148 163 184 / 0.045) 1px, transparent 1px),
       linear-gradient(90deg, rgb(148 163 184 / 0.045) 1px, transparent 1px);
     background-size:

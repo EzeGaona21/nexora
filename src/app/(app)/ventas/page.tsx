@@ -131,7 +131,7 @@ export default async function SalesPage({
                       {s.status === "cancelled" ? (
                         <Badge tone="danger">Cancelada</Badge>
                       ) : (
-                        <Badge tone="brand">Completada</Badge>
+                        <Badge tone="success">Completada</Badge>
                       )}
                     </td>
                   </tr>

@@ -170,7 +170,7 @@ export default async function DashboardPage() {
             description="Facturación diaria de los últimos 30 días"
             action={
               <div className="hidden items-center gap-4 sm:flex">
-                <LegendDot color="#10B981" label="Período actual" />
+                <LegendDot color="#8B5CF6" label="Período actual" />
                 <LegendDot color="#64748B" label="30 días anteriores" dashed />
               </div>
             }
@@ -193,7 +193,7 @@ export default async function DashboardPage() {
             </div>
             <div className="flex items-center justify-between border-t border-border pt-3">
               <dt className="font-medium">Resultado neto</dt>
-              <dd className={cn("num text-lg font-semibold", kpis.netResult < 0 ? "text-danger" : "text-brand-bright")}>
+              <dd className={cn("num text-lg font-semibold", kpis.netResult < 0 ? "text-danger" : "text-success")}>
                 {formatARS(kpis.netResult)}
               </dd>
             </div>

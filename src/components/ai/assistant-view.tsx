@@ -324,7 +324,7 @@ export function AssistantView({
       <section className="card relative flex min-w-0 flex-1 flex-col overflow-hidden" aria-label="Conversación con NEXORA AI">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(ellipse_60%_100%_at_50%_0%,rgb(16_185_129/0.09),transparent)]"
+          className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(ellipse_60%_100%_at_50%_0%,rgb(139_92_246/0.09),transparent)]"
         />
 
         <header className="relative flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">

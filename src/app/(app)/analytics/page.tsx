@@ -133,7 +133,7 @@ export default async function AnalyticsPage({
           description="Ganancia bruta = facturación menos costo de la mercadería vendida"
           action={
             <div className="hidden items-center gap-4 sm:flex">
-              <LegendDot color="#10B981" label="Facturación" />
+              <LegendDot color="#8B5CF6" label="Facturación" />
               <LegendDot color="#F8FAFC" label="Ganancia bruta" />
             </div>
           }

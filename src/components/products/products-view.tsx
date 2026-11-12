@@ -139,7 +139,7 @@ function ProductForm({
         <span
           className={cn(
             "num font-medium",
-            margin === null ? "text-subtle" : margin < 0 ? "text-danger" : margin < 15 ? "text-warning" : "text-brand-bright",
+            margin === null ? "text-subtle" : margin < 0 ? "text-danger" : margin < 15 ? "text-warning" : "text-success",
           )}
         >
           {margin === null ? "—" : formatPct(margin)}
