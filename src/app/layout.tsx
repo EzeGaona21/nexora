@@ -1,3 +1,4 @@
+import { NavProgress } from "@/components/layout/nav-progress";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
@@ -49,7 +50,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es-AR" className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable}`}>
       <body className="min-h-dvh">
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <NavProgress />
+          {children}
+        </MotionProvider>
         <Toaster
           theme="dark"
           position="bottom-right"
