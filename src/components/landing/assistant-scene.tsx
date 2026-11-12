@@ -50,22 +50,26 @@ export function AssistantScene() {
   const sent = phase === "consulting" || phase === "answer";
 
   return (
-    <section className="flex min-h-[100svh] items-center bg-brand px-4 py-20 text-black sm:px-8 sm:py-28">
-      <div className="mx-auto grid w-full max-w-[92rem] items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden border-y border-border bg-black px-4 py-20 sm:px-8 sm:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-[10%] top-1/2 size-[80vmin] -translate-y-1/2 rounded-full bg-brand/20 blur-[140px]"
+      />
+      <div className="relative mx-auto grid w-full max-w-[92rem] items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         <div>
-          <p className="caption mb-5 inline-flex items-center gap-2 font-semibold">
+          <p className="caption mb-5 inline-flex items-center gap-2 text-brand-bright">
             <Sparkles className="size-4" aria-hidden />
             NEXORA AI
           </p>
           <h2 className="display text-[19vw] sm:text-[clamp(5rem,10.5vw,11rem)]">Preguntale a tu negocio.</h2>
-          <p className="mt-6 max-w-lg text-lg font-medium text-black/80 sm:text-xl">
+          <p className="mt-6 max-w-lg text-lg text-fg/80 sm:text-xl">
             Escribí como hablás. El asistente consulta tus ventas, tu stock y tus gastos antes de
             responder, y si no hay datos suficientes te lo dice.
           </p>
           <form action={enterDemo} className="mt-8">
             <button
               type="submit"
-              className="display inline-flex h-14 cursor-pointer items-center gap-3 border-2 border-black bg-black px-8 text-2xl text-fg transition-colors hover:bg-transparent hover:text-black focus-visible:outline-black"
+              className="display inline-flex h-14 cursor-pointer items-center gap-3 border-2 border-brand bg-brand px-8 text-2xl text-black transition-colors hover:border-brand-bright hover:bg-brand-bright"
             >
               Verlo en la demo
               <ArrowRight className="size-5" aria-hidden />
@@ -73,7 +77,7 @@ export function AssistantScene() {
           </form>
         </div>
 
-        <div ref={ref} className="flex min-h-[26rem] flex-col border-2 border-black bg-black p-4 sm:p-6">
+        <div ref={ref} className="flex min-h-[26rem] flex-col border border-border-strong bg-bg p-4 shadow-pop sm:p-6">
           <div className="flex flex-1 flex-col justify-end gap-4" aria-live="polite">
             {sent ? (
               <motion.p
@@ -119,8 +123,8 @@ export function AssistantScene() {
                               <motion.mark
                                 key={part.text}
                                 className="bg-transparent font-semibold text-brand-bright"
-                                initial={{ backgroundColor: "rgb(16 185 129 / 0.45)" }}
-                                animate={{ backgroundColor: "rgb(16 185 129 / 0)" }}
+                                initial={{ backgroundColor: "rgb(139 92 246 / 0.45)" }}
+                                animate={{ backgroundColor: "rgb(139 92 246 / 0)" }}
                                 transition={{ duration: 1.2, delay: i * 0.45 + 0.3 }}
                               >
                                 {part.text}
@@ -139,7 +143,7 @@ export function AssistantScene() {
           </div>
 
           {/* Caja de texto: acá se escribe la pregunta */}
-          <div className="mt-5 flex items-center gap-3 border border-border-strong bg-bg px-4 py-3">
+          <div className="mt-5 flex items-center gap-3 border border-border-strong bg-black px-4 py-3">
             <p className="min-h-6 flex-1 text-[15px] text-fg">
               {sent ? (
                 <span className="text-subtle">Escribí tu pregunta</span>
