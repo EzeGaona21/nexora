@@ -1,9 +1,10 @@
+import { AssistantScene } from "@/components/landing/assistant-scene";
+import { DayStory } from "@/components/landing/day-story";
 import { Faq } from "@/components/landing/faq";
-import { Hero, ProductPreview } from "@/components/landing/hero";
+import { Hero } from "@/components/landing/hero";
 import { PricingGrid, PricingNote } from "@/components/landing/pricing";
-import { AiShowcase, FactsBand, RubrosMarquee } from "@/components/landing/showcase";
+import { RubrosMarquee } from "@/components/landing/showcase";
 import {
-  Benefits,
   Features,
   FinalCta,
   HowItWorks,
@@ -19,19 +20,10 @@ export default function LandingPage() {
       <main>
         <Hero />
         <RubrosMarquee />
-        <FactsBand />
-
-        <section className="border-y border-border px-4 py-20 sm:px-6 sm:py-28">
-          <SectionHeading eyebrow="El producto" title="Todo el negocio en una pantalla">
-            Facturación, ganancia, stock y lo que viene, apenas abrís NEXORA.
-          </SectionHeading>
-          <ProductPreview />
-        </section>
-
+        <DayStory />
+        <AssistantScene />
         <Features />
-        <AiShowcase />
         <HowItWorks />
-        <Benefits />
 
         <section id="precios" className="scroll-mt-24 border-t border-border bg-surface/40 px-4 py-24 sm:px-6">
           <div className="mx-auto max-w-6xl">

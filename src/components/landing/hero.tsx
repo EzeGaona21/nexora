@@ -1,166 +1,13 @@
 "use client";
 
-import { ArrowRight, TrendingUp } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { ArrowDown, ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
-import type { MouseEvent } from "react";
+import { useRef } from "react";
 
 import { enterDemo } from "@/actions/auth";
-import { LogoMark } from "@/components/layout/logo";
 import { EASE_OUT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
-
-const PREVIEW_KPIS = [
-  { label: "Facturación del mes", value: "$ 6.482.300", delta: "+12,4 %" },
-  { label: "Ganancia estimada", value: "$ 1.874.150", delta: "+9,1 %" },
-  { label: "Ticket promedio", value: "$ 8.940", delta: "+3,2 %" },
-];
-
-const PREVIEW_PRODUCTS = [
-  { name: "Leche entera 1 L", ratio: 1 },
-  { name: "Gaseosa cola 2,25 L", ratio: 0.86 },
-  { name: "Yerba mate 1 kg", ratio: 0.74 },
-  { name: "Cerveza lata 473 ml", ratio: 0.61 },
-];
-
-const AREA =
-  "M0 92 C 30 88, 45 70, 70 74 S 110 52, 140 58 S 185 30, 215 40 S 260 22, 290 28 S 335 10, 360 14";
-
-/** Maqueta ilustrativa del producto: inclina levemente siguiendo al cursor. */
-export function ProductPreview() {
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [4, -4]), { stiffness: 120, damping: 18 });
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-5, 5]), { stiffness: 120, damping: 18 });
-
-  function onMouseMove(e: MouseEvent<HTMLDivElement>) {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width - 0.5);
-    my.set((e.clientY - r.top) / r.height - 0.5);
-  }
-  function onMouseLeave() {
-    mx.set(0);
-    my.set(0);
-  }
-
-  return (
-    <div
-      className="relative mx-auto w-full max-w-5xl [perspective:1600px]"
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-x-[12%] -top-6 h-40 rounded-full bg-brand/20 blur-[90px]"
-      />
-      <motion.div
-        role="img"
-        aria-label="Vista ilustrativa del dashboard de NEXORA con indicadores, evolución de ventas y productos más vendidos"
-        className="card relative overflow-hidden shadow-pop"
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      >
-        {/* Barra de ventana */}
-        <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-          <span className="size-2.5 rounded-full bg-border-strong" />
-          <span className="size-2.5 rounded-full bg-border-strong" />
-          <span className="size-2.5 rounded-full bg-border-strong" />
-          <span className="num ml-3 rounded-md border border-border bg-bg px-2.5 py-0.5 text-[11px] text-subtle">
-            nexora.app/dashboard
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-[13rem_1fr]">
-          <div className="hidden flex-col gap-1.5 border-r border-border p-4 md:flex">
-            <div className="mb-3 flex items-center gap-2">
-              <LogoMark className="size-5" />
-              <span className="text-xs font-semibold tracking-[0.14em]">NEXORA</span>
-            </div>
-            {["Dashboard", "Ventas", "Productos", "Gastos", "Predicciones", "Alertas"].map((item, i) => (
-              <div
-                key={item}
-                className={cn(
-                  "rounded-md px-2.5 py-1.5 text-xs",
-                  i === 0 ? "border border-border bg-raised text-fg" : "text-subtle",
-                )}
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-
-          <div className="p-4 sm:p-5">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {PREVIEW_KPIS.map((k) => (
-                <div key={k.label} className="rounded-xl border border-border bg-bg p-3.5">
-                  <p className="text-[11px] text-muted">{k.label}</p>
-                  <p className="num mt-1.5 text-lg font-semibold">{k.value}</p>
-                  <p className="num mt-1 inline-flex items-center gap-1 text-[11px] text-brand-bright">
-                    <TrendingUp className="size-3" aria-hidden />
-                    {k.delta}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[1.6fr_1fr]">
-              <div className="rounded-xl border border-border bg-bg p-3.5">
-                <p className="text-[11px] text-muted">Evolución de ventas · 30 días</p>
-                <svg viewBox="0 0 360 100" className="mt-2 h-28 w-full" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="hero-area" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10B981" stopOpacity="0.28" />
-                      <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <motion.path
-                    d={`${AREA} L360 100 L0 100 Z`}
-                    fill="url(#hero-area)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1.1 }}
-                  />
-                  <motion.path
-                    d={AREA}
-                    fill="none"
-                    stroke="#10B981"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    vectorEffect="non-scaling-stroke"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.4, delay: 0.5, ease: EASE_OUT }}
-                  />
-                </svg>
-              </div>
-              <div className="rounded-xl border border-border bg-bg p-3.5">
-                <p className="text-[11px] text-muted">Más vendidos</p>
-                <ul className="mt-3 flex flex-col gap-2.5">
-                  {PREVIEW_PRODUCTS.map((p, i) => (
-                    <li key={p.name}>
-                      <p className="mb-1 truncate text-[11px] text-fg">{p.name}</p>
-                      <div className="h-1 overflow-hidden rounded-full bg-raised">
-                        <motion.div
-                          className="h-full origin-left rounded-full bg-brand"
-                          style={{ width: `${p.ratio * 100}%` }}
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{ duration: 0.7, delay: 0.8 + i * 0.08, ease: EASE_OUT }}
-                        />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-      <p className="mt-3 text-center text-xs text-subtle">
-        Vista ilustrativa. En la demo vas a ver el producto real con datos de un comercio ficticio.
-      </p>
-    </div>
-  );
-}
 
 // ── Gráfico de puntos del hero ─────────────────────────────────────
 // Ventas diarias de un comercio tipo: sube de a poco, con pico de fin de
@@ -219,11 +66,22 @@ const cta =
   "display inline-flex h-14 w-full cursor-pointer items-center justify-center gap-3 border-2 px-8 text-2xl transition-colors duration-150 sm:w-auto";
 
 export function Hero() {
-  return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black">
-      <DotChart />
+  const ref = useRef<HTMLElement>(null);
+  // Al bajar, el titular se aleja y el gráfico se hunde: la portada cede el lugar.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const chartY = useTransform(scrollYProgress, [0, 1], [0, 140]);
 
-      <div className="relative flex flex-1 flex-col items-center justify-center px-4 pb-[26svh] pt-28 text-center sm:px-8">
+  return (
+    <section ref={ref} className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black">
+      <motion.div aria-hidden className="absolute inset-0" style={{ y: chartY }}>
+        <DotChart />
+      </motion.div>
+
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative flex flex-1 flex-col items-center justify-center px-4 pb-[26svh] pt-28 text-center sm:px-8">
         <motion.p
           className="caption mb-5 text-muted sm:mb-7 sm:text-sm"
           initial={{ opacity: 0 }}
@@ -278,13 +136,17 @@ export function Hero() {
             </form>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Pie del hero: lectura del gráfico */}
       <div className="caption relative flex items-end justify-between gap-4 px-4 pb-5 text-[0.65rem] text-fg/70 sm:px-8 sm:text-xs">
         <span className="flex items-center gap-2">
           <span aria-hidden className="size-2.5 bg-brand" />
           Ventas reales
+        </span>
+        <span className="hidden items-center gap-2 sm:flex">
+          Bajá para ver un día completo
+          <ArrowDown className="size-3.5" aria-hidden />
         </span>
         <span className="flex items-center gap-2">
           Estimación próximos días
