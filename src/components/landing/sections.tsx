@@ -290,7 +290,18 @@ export function LandingFooter() {
         </div>
       </div>
       <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-2 border-t border-border pt-6 text-xs text-subtle sm:flex-row sm:justify-between">
-        <p>© 2026 NEXORA. Proyecto de demostración.</p>
+        <p>
+          © 2026 NEXORA. Diseñado y desarrollado por{" "}
+          <a
+            href="https://github.com/EzeGaona21"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-muted underline-offset-4 hover:text-fg hover:underline"
+          >
+            Ezequiel Gaona
+          </a>
+          .
+        </p>
         <p>Hecho en Argentina · Importes en pesos argentinos (ARS)</p>
       </div>
     </footer>

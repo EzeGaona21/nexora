@@ -142,3 +142,9 @@ Sin estas variables el asistente muestra que no está conectado; **nunca simula 
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — arquitectura, modelo de datos y decisiones.
 - [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) — dirección visual, tokens, movimiento y checklist de entrega.
 - [`docs/PROGRESS.md`](docs/PROGRESS.md) — qué está implementado, qué se verificó y qué falta.
+
+## Autor
+
+Diseñado y desarrollado por **Ezequiel Gaona** · [github.com/EzeGaona21](https://github.com/EzeGaona21)
+
+Demo en vivo: https://nexora-app-ai.vercel.app

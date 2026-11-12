@@ -22,6 +22,8 @@ const display = localFont({
 // Exponen las variables --font-geist-sans y --font-geist-mono.
 
 export const metadata: Metadata = {
+  authors: [{ name: "Ezequiel Gaona", url: "https://github.com/EzeGaona21" }],
+  creator: "Ezequiel Gaona",
   metadataBase: new URL(siteUrl),
   title: {
     default: "NEXORA — Gestión y predicción de ventas para comercios",
