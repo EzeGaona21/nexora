@@ -25,6 +25,7 @@ const display = localFont({
 export const metadata: Metadata = {
   authors: [{ name: "Ezequiel Gaona", url: "https://github.com/EzeGaona21" }],
   creator: "Ezequiel Gaona",
+  verification: { google: "M30ifBEnTQ_t7UlSJS-WwuWbpQq31j4ECxsaeVi4t5E" },
   metadataBase: new URL(siteUrl),
   title: {
     default: "NEXORA — Gestión y predicción de ventas para comercios",
