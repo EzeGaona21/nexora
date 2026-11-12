@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   NEXORA · Design tokens
+   Dirección: Dark Intelligent SaaS — Emerald Glass — Precision Analytics
+   Documentado en docs/DESIGN_SYSTEM.md
+   ═══════════════════════════════════════════════════════════════ */
+@theme {
+  /* Superficies (de más profunda a más elevada) */
+  --color-bg: #080b10;
+  --color-surface: #111720;
+  --color-raised: #161d28;
+  --color-border: #1e293b;
+  --color-border-strong: #2b3a52;
+
+  /* Texto */
+  --color-fg: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-subtle: #64748b;
+
+  /* Marca */
+  --color-brand: #10b981;
+  --color-brand-bright: #34d399;
+  --color-brand-deep: #064e3b;
+
+  /* Semánticos */
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+  --color-info: #60a5fa;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  /* Titulares del sitio público: condensada, siempre en mayúsculas. */
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
+
+  --radius-card: 0.875rem;
+
+  --shadow-glow: 0 0 0 1px rgb(16 185 129 / 0.25), 0 8px 40px -12px rgb(16 185 129 / 0.35);
+  --shadow-pop: 0 24px 60px -20px rgb(0 0 0 / 0.7);
+
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes cell-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgb(16 185 129 / 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* Scrollbars discretas */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+@layer components {
+  /* Cifras: monoespaciadas y tabulares para que las columnas alineen */
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Vidrio esmerilado: se usa solo en capas flotantes (nav, modales) */
+  .glass {
+    background-color: rgb(17 23 32 / 0.72);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* Tarjeta base: borde delicado + filo de luz superior */
+  .card {
+    position: relative;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    background-image: linear-gradient(180deg, rgb(255 255 255 / 0.025), transparent 40%);
+  }
+
+  /* Fondo con profundidad: retícula + halo esmeralda, sin imágenes */
+  .backdrop-grid {
+    background-image:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgb(16 185 129 / 0.13), transparent 70%),
+      linear-gradient(rgb(148 163 184 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(148 163 184 / 0.045) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      56px 56px,
+      56px 56px;
+    mask-image: linear-gradient(180deg, black 55%, transparent);
+  }
+
+  /* Cinta continua: el contenido está duplicado y se desplaza la mitad. */
+  .marquee {
+    animation: marquee 38s linear infinite;
+  }
+
+  /* Titular de display: mayúsculas condensadas, interlínea apretada. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.98;
+    letter-spacing: 0.005em;
+  }
+
+  /* Texto chico de apoyo: monoespaciado, espaciado amplio. */
+  .caption {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  /* Columnas del gráfico de puntos del hero: aparecen de izquierda a derecha. */
+  .cell-col {
+    animation: cell-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .select-chevron {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    background-size: 16px;
+  }
+
+  .skeleton {
+    border-radius: 0.5rem;
+    background-image: linear-gradient(
+      90deg,
+      var(--color-surface) 25%,
+      var(--color-raised) 50%,
+      var(--color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .skeleton {
+    animation: none;
+  }
+  .marquee,
+  .cell-col {
+    animation: none;
+  }
+}
+
+/* Comprobante: al imprimir queda solo el ticket, en claro */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    border: none !important;
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  .print-area * {
+    color: black !important;
+    border-color: #d4d4d8 !important;
+  }
+}
