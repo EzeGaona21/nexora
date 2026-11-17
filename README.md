@@ -2,6 +2,15 @@
 
 Plataforma de gestión, análisis y predicción de ventas para pequeños y medianos comercios de Argentina. Ventas, stock y gastos en un solo lugar; dashboard ejecutivo, predicciones estadísticas, alertas por reglas y un asistente de IA que responde consultando los datos reales del comercio.
 
+**Demo:** [nexora-app-ai.vercel.app](https://nexora-app-ai.vercel.app/)
+
+<img src="https://raw.githubusercontent.com/EzeGaona21/EzeGaona21/main/assets/nexora_portada_1.png" alt="Portada de Nexora" width="100%">
+
+<p>
+  <img src="https://raw.githubusercontent.com/EzeGaona21/EzeGaona21/main/assets/nexora_dia_comercio_1.png" alt="Dashboard de ventas de Nexora" width="49%">
+  <img src="https://raw.githubusercontent.com/EzeGaona21/EzeGaona21/main/assets/nexora_asistente_ia_1.png" alt="Asistente de IA de Nexora" width="49%">
+</p>
+
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript estricto · Tailwind CSS 4 · Motion · Recharts · Zod · React Hook Form · Supabase (PostgreSQL + Auth + RLS) · pdf-lib · Geist (auto-alojada) · Vercel.
 - **Idioma y moneda:** español rioplatense, pesos argentinos (ARS), huso horario de Buenos Aires.
 - **Estado del proyecto:** ver [`docs/PROGRESS.md`](docs/PROGRESS.md).
