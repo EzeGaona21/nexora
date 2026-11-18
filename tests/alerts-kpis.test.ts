@@ -140,10 +140,11 @@ describe("KPIs del dashboard", () => {
     assert.equal(pctChange(150, 100), 50);
   });
 
-  it("compara mes a la fecha contra el mismo tramo del mes anterior", () => {
+  it("compara los días cerrados del mes contra el mismo tramo del mes anterior", () => {
     const k = computeDashboardKpis(daily, TODAY, 300_000);
+    // El valor incluye hoy; la variación usa solo días cerrados (1 al 10).
     assert.equal(k.monthRevenue.value, 11 * 120_000);
-    assert.equal(k.monthRevenue.previous, 11 * 100_000);
+    assert.equal(k.monthRevenue.previous, 10 * 100_000);
     assert.ok(Math.abs((k.monthRevenue.changePct ?? 0) - 20) < 1e-9);
     assert.equal(k.salesCount.value, 110);
     assert.equal(k.avgTicket.value, 12_000);
@@ -153,6 +154,20 @@ describe("KPIs del dashboard", () => {
     assert.equal(k.netResult, 11 * 42_000 - 300_000);
     assert.equal(k.todayRevenue.value, 120_000);
     assert.equal(k.todayRevenue.previous, 120_000);
+    assert.equal(k.periodLabel, "días 1 al 10 vs. mismo tramo del mes anterior");
+  });
+
+  it("compara hoy contra ayer hasta la misma hora cuando hay dato", () => {
+    const k = computeDashboardKpis(daily, TODAY, 0, 60_000);
+    assert.equal(k.todayRevenue.previous, 60_000);
+    assert.ok(Math.abs((k.todayRevenue.changePct ?? 0) - 100) < 1e-9);
+  });
+
+  it("el primer día del mes no compara el mes", () => {
+    const k = computeDashboardKpis(daily, "2026-11-01", 0);
+    assert.equal(k.monthRevenue.value, 120_000);
+    assert.equal(k.monthRevenue.changePct, null);
+    assert.equal(k.marginPct.changePct, null);
   });
 
   it("la serie comparativa alinea cada día con el del período previo", () => {

@@ -1,7 +1,9 @@
 /**
  * Indicadores del dashboard — módulo puro.
  * Compara el período en curso contra el período anterior equivalente:
- * hoy vs. ayer, y mes a la fecha vs. los mismos días del mes pasado.
+ * hoy vs. ayer hasta la misma hora, y el mes vs. los mismos días del mes
+ * pasado. Para el mes se comparan solo días cerrados: el día de hoy todavía
+ * está en curso y, si entrara en la cuenta, la variación siempre daría a la baja.
  */
 
 import { addDays, addMonths, dayOfMonth, daysInMonth, startOfMonth } from "../dates.ts";
@@ -41,8 +43,8 @@ export function pctChange(current: number, previous: number): number | null {
   return ((current - previous) / Math.abs(previous)) * 100;
 }
 
-function kpi(value: number, previous: number): Kpi {
-  return { value, previous, changePct: pctChange(value, previous) };
+function kpi(value: number, previous: number, compared = value): Kpi {
+  return { value, previous, changePct: pctChange(compared, previous) };
 }
 
 function sumRange(daily: DailySales[], from: string, to: string) {
@@ -63,42 +65,50 @@ export function computeDashboardKpis(
   daily: DailySales[],
   today: string,
   monthExpenses: number,
+  /** Facturación de ayer hasta la misma hora que ahora. Sin el dato, se usa ayer completo. */
+  yesterdaySoFar?: number,
 ): DashboardKpis {
   const yesterday = addDays(today, -1);
   const monthStart = startOfMonth(today);
   const prevMonthStart = addMonths(today, -1);
-  // Mismo tramo del mes anterior (recortado si ese mes es más corto).
-  const span = Math.min(dayOfMonth(today), daysInMonth(prevMonthStart));
+  // Días cerrados del mes (hasta ayer) y el mismo tramo del mes anterior,
+  // recortado si ese mes es más corto. El día 1 no hay nada que comparar.
+  const closedDays = dayOfMonth(today) - 1;
+  const span = Math.min(closedDays, daysInMonth(prevMonthStart));
   const prevMonthEnd = addDays(prevMonthStart, span - 1);
 
   const t = sumRange(daily, today, today);
   const y = sumRange(daily, yesterday, yesterday);
   const cur = sumRange(daily, monthStart, today);
+  const closed = sumRange(daily, monthStart, yesterday);
   const prev = sumRange(daily, prevMonthStart, prevMonthEnd);
+
+  const ticket = (r: { revenue: number; count: number }) => (r.count > 0 ? r.revenue / r.count : 0);
+  const margin = (r: { revenue: number; cost: number }) =>
+    r.revenue > 0 ? ((r.revenue - r.cost) / r.revenue) * 100 : 0;
 
   const curProfit = cur.revenue - cur.cost;
   const prevProfit = prev.revenue - prev.cost;
-  const curMargin = cur.revenue > 0 ? (curProfit / cur.revenue) * 100 : 0;
-  const prevMargin = prev.revenue > 0 ? (prevProfit / prev.revenue) * 100 : 0;
+  const prevMargin = margin(prev);
 
   return {
-    todayRevenue: kpi(t.revenue, y.revenue),
-    monthRevenue: kpi(cur.revenue, prev.revenue),
-    grossProfit: kpi(curProfit, prevProfit),
-    salesCount: kpi(cur.count, prev.count),
-    avgTicket: kpi(
-      cur.count > 0 ? cur.revenue / cur.count : 0,
-      prev.count > 0 ? prev.revenue / prev.count : 0,
-    ),
+    todayRevenue: kpi(t.revenue, yesterdaySoFar ?? y.revenue),
+    monthRevenue: kpi(cur.revenue, prev.revenue, closed.revenue),
+    grossProfit: kpi(curProfit, prevProfit, closed.revenue - closed.cost),
+    salesCount: kpi(cur.count, prev.count, closed.count),
+    avgTicket: kpi(ticket(cur), ticket(prev), ticket(closed)),
     marginPct: {
-      value: curMargin,
+      value: margin(cur),
       previous: prevMargin,
       // Para márgenes se informa la diferencia en puntos, no un % de un %.
-      changePct: prev.revenue > 0 && cur.revenue > 0 ? curMargin - prevMargin : null,
+      changePct: prev.revenue > 0 && closed.revenue > 0 ? margin(closed) - prevMargin : null,
     },
     netResult: curProfit - monthExpenses,
     monthExpenses,
-    periodLabel: `1 al ${dayOfMonth(today)} vs. mismo tramo del mes anterior`,
+    periodLabel:
+      closedDays > 0
+        ? `días 1 al ${closedDays} vs. mismo tramo del mes anterior`
+        : "se muestran desde mañana, cuando haya días cerrados",
   };
 }
 

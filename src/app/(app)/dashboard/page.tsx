@@ -30,7 +30,7 @@ export default async function DashboardPage() {
   const ctx = await getSessionContext();
   const today = todayAR();
 
-  const [daily, insights, expenses, recentRes] = await Promise.all([
+  const [daily, insights, expenses, recentRes, yesterdayRes] = await Promise.all([
     fetchDailySales(ctx, addDays(today, -92), today),
     fetchInsights(ctx, 30),
     fetchExpensesSummary(ctx, startOfMonth(today), today),
@@ -40,6 +40,14 @@ export default async function DashboardPage() {
       .eq("org_id", ctx.org.id)
       .order("created_at", { ascending: false })
       .limit(7),
+    // Ayer hasta la misma hora que ahora, para comparar "hoy" de forma justa.
+    ctx.supabase
+      .from("sales")
+      .select("total")
+      .eq("org_id", ctx.org.id)
+      .eq("status", "completed")
+      .gte("created_at", `${addDays(today, -1)}T00:00:00-03:00`)
+      .lte("created_at", new Date(Date.now() - 86_400_000).toISOString()),
   ]);
   if (recentRes.error) throw new Error(recentRes.error.message);
   const recent = (recentRes.data ?? []) as Pick<
@@ -48,7 +56,10 @@ export default async function DashboardPage() {
   >[];
 
   const monthExpenses = expenses.reduce((a, e) => a + e.total, 0);
-  const kpis = computeDashboardKpis(daily, today, monthExpenses);
+  const yesterdaySoFar = yesterdayRes.error
+    ? undefined
+    : (yesterdayRes.data ?? []).reduce((a, s) => a + Number(s.total), 0);
+  const kpis = computeDashboardKpis(daily, today, monthExpenses, yesterdaySoFar);
   const series = buildComparisonSeries(daily, today, 30);
   const topProducts = insights.filter((p) => p.revenue_window > 0).slice(0, 5);
   const maxRevenue = topProducts[0]?.revenue_window ?? 0;
@@ -103,7 +114,7 @@ export default async function DashboardPage() {
             value={kpis.todayRevenue.value}
             format="ars"
             change={kpis.todayRevenue.changePct}
-            caption="vs. ayer completo"
+            caption={yesterdaySoFar === undefined ? "vs. ayer completo" : "vs. ayer a esta hora"}
             icon={<CalendarDays />}
           />
         </StaggerItem>
@@ -160,7 +171,7 @@ export default async function DashboardPage() {
         </StaggerItem>
       </Stagger>
       <p className="mt-2 text-xs text-subtle">
-        Comparaciones del mes: días {kpis.periodLabel}.
+        Comparaciones del mes: {kpis.periodLabel}.
       </p>
 
       <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-3">
