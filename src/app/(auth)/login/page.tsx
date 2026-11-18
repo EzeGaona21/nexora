@@ -11,7 +11,8 @@ const NOTICES: Record<string, string> = {
   config:
     "Falta configurar Supabase. Completá .env.local siguiendo el README y reiniciá el servidor.",
   demo: "La demo todavía no está configurada en este entorno. Ejecutá npm run seed:demo (ver README).",
-  link: "El enlace venció o ya fue usado. Pedí uno nuevo.",
+  link: "El enlace venció o ya fue usado. Si ya lo habías tocado antes, tu cuenta está confirmada: iniciá sesión.",
+  confirmed: "Tu correo quedó confirmado. Iniciá sesión para empezar.",
 };
 
 export default async function LoginPage({

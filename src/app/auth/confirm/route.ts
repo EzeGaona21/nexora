@@ -22,6 +22,10 @@ export async function GET(request: NextRequest) {
     if (code) {
       const { error } = await supabase.auth.exchangeCodeForSession(code);
       if (!error) return NextResponse.redirect(`${origin}${next}`);
+      // Supabase solo entrega el código después de confirmar el correo. Si no se
+      // pudo abrir la sesión es porque el enlace se abrió en otro navegador o
+      // dispositivo: la cuenta ya está confirmada, falta iniciar sesión.
+      return NextResponse.redirect(`${origin}/login?error=confirmed`);
     } else if (tokenHash && type) {
       const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
       if (!error) return NextResponse.redirect(`${origin}${next}`);
